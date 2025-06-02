@@ -1,0 +1,166 @@
+[
+  {
+    "id": "pte_fib_rw_sample_v6_001",
+    "title": "The Evolving University (Enhanced V6)",
+    "exerciseType": "FIB_RW",
+    "difficulty": "Medium", 
+    "rawPassage": "The modern university, as an institution, evolved from medieval European universities. These early institutions were primarily centers for teaching theology, law, and medicine. Over centuries, their curriculum _______ to include a wider range of subjects, reflecting societal changes and the _______ of new knowledge. Today, universities are expected to not only impart knowledge but also to _______ critical thinking and foster innovation. The _______ for research has become a defining characteristic of many leading universities worldwide.",
+    "linguistic_resources": { 
+        "common_error_patterns": [
+            { "id": "cep_001", "name": "Semantic Precision", "explanation": "Multiple words might seem grammatically correct, but only one perfectly fits the specific meaning required by the context. Avoid overly general words when a more precise option is available.", "examples": ["Using 'big' instead of 'significant' in an academic context."] },
+            { "id": "cep_002", "name": "Incorrect Part of Speech", "explanation": "The sentence structure dictates the required part of speech (noun, verb, adjective, etc.). Choosing a word with the wrong part of speech makes the sentence grammatically incorrect.", "examples": ["Using 'beauty' (noun) instead of 'beautiful' (adjective)."] },
+            { "id": "cep_003", "name": "Opposite Meaning", "explanation": "This error occurs when selecting a word that means the opposite of what the context logically requires. Look for clues indicating positive or negative direction.", "examples": ["Choosing 'decrease' when the context implies 'increase'."] },
+            { "id": "cep_004", "name": "Contradictory Context", "explanation": "The chosen word directly contradicts information stated or strongly implied elsewhere in the sentence or passage.", "examples": ["Saying an animal is 'active at night' then choosing 'diurnal' to describe it."]},
+            { "id": "cep_005", "name": "Plausible but Weaker Fit", "explanation": "The selected word might be grammatically correct and make some sense, but another option fits the context more precisely, strongly, or idiomatically.", "examples": ["Choosing 'good' when 'excellent' or 'optimal' is a better fit."] }
+        ],
+        "key_terms": [
+            { "id": "linking_verb", "term": "Linking Verb", "definition": "Connects the subject to a word or phrase that describes or renames it (e.g., is, seem, become)." },
+            { "id": "collocation_term", "term": "Collocation", "definition": "Words that frequently occur together, forming natural-sounding pairs (e.g., 'strong coffee', 'make an effort')." },
+            { "id": "infinitive_verb", "term": "Infinitive Verb", "definition": "The basic form of a verb, usually preceded by 'to' (e.g., 'to go', 'to cultivate'). Often expresses purpose." },
+            { "id": "parallelism_term", "term": "Parallelism", "definition": "Using the same grammatical structure for two or more related ideas for balance and clarity (e.g., 'to impart knowledge... to cultivate thinking... and foster innovation')." },
+            { "id": "noun_phrase_term", "term": "Noun Phrase", "definition": "A group of words centered around a noun that functions as a noun in a sentence (e.g., 'the emergence of new knowledge')."}
+        ]
+    },
+    "blanks": [
+      {
+        "blank_index": 0,
+        "correct_answer": "expanded",
+        "options_fib_rw": ["expanded", "shrunk", "maintained", "ignored"],
+        "analysis_and_hints": {
+          "pos_tag_correct_answer": "Verb (Past Tense)", 
+          "primary_reason": "The context 'to include a wider range of subjects' indicates growth. 'Expanded' fits this.",
+          "grammatical_fit": "A past tense verb is needed. 'Expanded' is correct.",
+          "passage_highlight_phrases": ["Over centuries", "curriculum", "wider range of subjects"],
+          "collocations": ["'curriculum expanded'"],
+          "distractor_analysis": [
+            {"option": "shrunk", "reason": "'Shrunk' is opposite to 'wider range'.", "common_error_pattern_id": "cep_003"},
+            {"option": "maintained", "reason": "'Maintained' implies no change, conflicting with 'wider range'.", "common_error_pattern_id": "cep_004"}
+          ],
+          "learning_tip": "Phrases like 'wider range' signal a need for words related to increase or broadening.",
+          "skill_tags": ["verb_tense", "contextual_vocabulary", "verb_choice"]
+        }
+      },
+      {
+        "blank_index": 1,
+        "correct_answer": "emergence",
+        "options_fib_rw": ["emergence", "decline", "stagnation", "popularity"],
+        "analysis_and_hints": {
+          "pos_tag_correct_answer": "Noun", 
+          "primary_reason": "'the ___ of new knowledge' refers to its appearance. 'Emergence' fits.",
+          "grammatical_fit": "A noun is required after 'the' and before 'of'. The phrase 'the <span class=\"interactive-hint-term\" data-term-id=\"noun_phrase_term\">emergence of new knowledge</span>' acts as a complete unit.",
+          "passage_highlight_phrases": ["societal changes", "new knowledge"],
+          "collocations": ["'emergence of new knowledge'"],
+          "distractor_analysis": [
+            {"option": "decline", "reason": "'Decline' is opposite to the idea of new knowledge appearing alongside societal changes.", "common_error_pattern_id": "cep_003"}
+          ],
+          "learning_tip": "The structure 'the X of Y' often requires X to be a noun.",
+          "skill_tags": ["noun_choice", "prepositions", "collocation_term"]
+        }
+      },
+      {
+        "blank_index": 2,
+        "correct_answer": "cultivate",
+        "options_fib_rw": ["cultivate", "suppress", "ignore", "question"],
+        "analysis_and_hints": {
+          "pos_tag_correct_answer": "Verb (Base Form)", 
+          "primary_reason": "Universities aim to develop critical thinking. 'Cultivate' means to develop a skill.",
+          "grammatical_fit": "After 'to', the <span class=\"interactive-hint-term\" data-term-id=\"infinitive_verb\">base form of the verb</span> is needed. The sentence uses <span class=\"interactive-hint-term\" data-term-id=\"parallelism_term\">parallel structure</span>: 'to impart knowledge but also to cultivate critical thinking and foster innovation'.",
+          "passage_highlight_phrases": ["impart knowledge", "critical thinking", "foster innovation"],
+          "collocations": ["'cultivate critical thinking'"],
+          "distractor_analysis": [
+            {"option": "suppress", "reason": "'Suppress' is the opposite of fostering or developing critical thinking.", "common_error_pattern_id": "cep_003"}
+          ],
+          "learning_tip": "Look for parallel structures (e.g., 'to X and Y and Z') where X, Y, and Z should be grammatically similar and often similar in meaning/intent.",
+          "skill_tags": ["verb_choice", "infinitive_form", "parallelism_term"]
+        }
+      },
+      {
+        "blank_index": 3,
+        "correct_answer": "mandate",
+        "options_fib_rw": ["mandate", "option", "suggestion", "preference"],
+        "analysis_and_hints": {
+          "pos_tag_correct_answer": "Noun", 
+          "primary_reason": "'The ___ for research' as a 'defining characteristic' suggests a strong requirement. 'Mandate' fits.",
+          "grammatical_fit": "A noun is needed as the subject.",
+          "passage_highlight_phrases": ["research", "defining characteristic"],
+          "semantic_fit": "'Mandate for research' implies a formal expectation.",
+          "distractor_analysis": [
+            {"option": "option", "reason": "Research being an 'option' is too weak for a 'defining characteristic'.", "common_error_pattern_id": "cep_005"}
+          ],
+          "learning_tip": "A 'defining characteristic' usually points to something more forceful than an 'option'.",
+          "skill_tags": ["noun_choice", "word_meaning_strength"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "pte_dnd_sample_v6_001",
+    "title": "Storytelling Art (Enhanced V6 - DND)",
+    "exerciseType": "DND",
+    "difficulty": "Easy",
+    "rawPassage": "Storytelling is an ancient art form, fundamental to human culture. It serves not only to entertain but also to _______ values, share knowledge, and build community. Effective storytellers often _______ vivid imagery and relatable characters to engage their audience. The _______ of a well-told story can be profound, leaving a lasting _______ on the listener. From epic myths to personal anecdotes, stories _______ our understanding of the world and ourselves.",
+    "draggable_options_dnd": ["impact", "shape", "convey", "employ", "power", "reduce", "confuse", "ignore"],
+    "linguistic_resources": { 
+        "common_error_patterns": [ 
+            { "id": "cep_dnd_001", "name": "DND: Word Misplacement", "explanation": "Choosing a grammatically correct word but placing it in a blank where it doesn't semantically fit the immediate context."}
+        ],
+        "key_terms": [
+          { "id": "parallelism_dnd", "term": "Parallelism (DND)", "definition": "In DND, this often means lists of verbs or nouns dragged into blanks should maintain consistency in form and function."}
+        ]
+    },
+    "blanks": [
+      {
+        "blank_index": 0,
+        "correct_answer": "convey",
+        "analysis_and_hints": {
+          "pos_tag_correct_answer": "Verb (Base Form)",
+          "primary_reason": "Storytelling function: 'to ___ values'. 'Convey values' (transmit) fits.",
+          "grammatical_fit": "After 'to', base form verb needed. Uses <span class=\"interactive-hint-term\" data-term-id=\"parallelism_dnd\">parallel structure</span>.",
+          "passage_highlight_phrases": ["entertain", "values", "share knowledge", "build community"],
+          "skill_tags": ["verb_choice", "parallelism_dnd", "context_clues"]
+        }
+      },
+      {
+        "blank_index": 1,
+        "correct_answer": "employ",
+        "analysis_and_hints": {
+          "pos_tag_correct_answer": "Verb",
+          "primary_reason": "Storytellers '___ vivid imagery'. 'Employ' (make use of) fits.",
+          "passage_highlight_phrases": ["Effective storytellers", "vivid imagery", "relatable characters"],
+          "skill_tags": ["verb_choice", "contextual_vocabulary"]
+        }
+      },
+      {
+        "blank_index": 2, 
+        "correct_answer": "power", 
+        "analysis_and_hints": { 
+          "pos_tag_correct_answer": "Noun",
+          "primary_reason": "The 'power' of a story can be profound.", 
+          "passage_highlight_phrases": ["well-told story", "profound"], 
+          "skill_tags": ["noun_choice", "abstract_nouns"] 
+        }
+      },
+      {
+        "blank_index": 3, 
+        "correct_answer": "impact", 
+        "analysis_and_hints": { 
+          "pos_tag_correct_answer": "Noun",
+          "primary_reason": "Leaves a lasting 'impact' on the listener.", 
+          "passage_highlight_phrases": ["lasting", "on the listener"],
+          "collocations": ["'lasting impact'"], 
+          "skill_tags": ["noun_choice", "collocation_term"] 
+        }
+      },
+      {
+        "blank_index": 4, 
+        "correct_answer": "shape", 
+        "analysis_and_hints": { 
+          "pos_tag_correct_answer": "Verb",
+          "primary_reason": "Stories 'shape' our understanding.", 
+          "passage_highlight_phrases": ["stories", "our understanding"], 
+          "skill_tags": ["verb_choice", "figurative_language"] 
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system"> <!-- Added default theme for initial load -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTE Linguistic Navigator Pro - Advanced AI Learning System</title>
+    <meta name="description" content="Advanced AI-powered system for PTE exam preparation with intelligent feedback and linguistic analysis">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-192x192.png"> <!-- Common Apple size -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png"> <!-- Smaller size for tabs -->
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+    <!-- Fallback SVG Favicon if PNGs are missing -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+</head>
+<body>
+    <!-- Dark Mode Toggle Button - Positioned via CSS -->
+    <button id="darkModeToggle" class="dark-mode-toggle mode-btn" aria-label="Toggle dark/light mode" title="Toggle dark/light mode" aria-pressed="false">
+        <i class="fas fa-moon"></i> <!-- Icon changes with JS -->
+    </button>
+
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-compass"></i> PTE Linguistic Navigator Pro <span class="tag-ai">AI Enhanced</span></h1>
+            <p>Your Ultimate AI-Powered System for PTE Fill-in-the-Blanks Mastery</p>
+        </header>
+
+        <nav class="mode-selector" aria-label="Application Modes">
+            <button id="studentModeBtn" class="mode-btn active" title="Switch to Student Mode" aria-pressed="true"><i class="fas fa-user-graduate"></i> Student Mode</button>
+            <button id="adminModeBtn" class="mode-btn" title="Switch to Administrator Mode" aria-pressed="false"><i class="fas fa-user-cog"></i> Admin Mode</button>
+            <button id="settingsBtnHeader" class="mode-btn settings-btn-header" title="Application Settings" aria-label="Open Settings"><i class="fas fa-cog"></i></button>
+        </nav>
+
+        <!-- Student Panel -->
+        <main id="studentPanel" class="panel" aria-labelledby="studentPanelTitle">
+            <h2 id="studentPanelTitle" class="visually-hidden">Student Dashboard</h2>
+            <section class="exercise-stats" aria-label="Your Performance Statistics">
+                <div class="stat-card">
+                    <h3 id="statTotalExercises">0</h3>
+                    <p>Total Exercises</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statCompletedExercises">0</h3>
+                    <p>Completed</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statAverageScore">0%</h3>
+                    <p>Average Score</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statStudyTime">0m</h3>
+                    <p>Study Time</p>
+                </div>
+                 <div class="stat-card">
+                    <h3 id="statStreak">0</h3>
+                    <p>Day Streak <i class="fas fa-fire streak-icon" aria-hidden="true"></i></p>
+                </div>
+            </section>
+
+            <section class="exercise-type-selector" aria-label="Filter and Search Exercises">
+                <button class="type-btn active" data-type-filter="all" title="Show all exercise types"><i class="fas fa-list-ul"></i> All Types</button>
+                <button class="type-btn" data-type-filter="FIB_RW" title="Show Reading Fill-in-the-Blanks"><i class="fas fa-book-reader"></i> Reading FIB</button>
+                <button class="type-btn" data-type-filter="DND" title="Show Drag & Drop"><i class="fas fa-hand-paper"></i> Drag & Drop</button>
+                <div class="search-container">
+                    <input type="text" id="exerciseSearchInput" placeholder="Search by title or ID..." aria-label="Search exercises by title or ID">
+                    <button id="exerciseSearchBtn" class="btn btn-icon" aria-label="Search"><i class="fas fa-search"></i></button>
+                </div>
+            </section>
+            
+            <section class="exercise-selection-student" aria-label="Exercise Selection">
+                 <label for="studentExerciseSelector">Select Exercise:</label>
+                 <select id="studentExerciseSelector" disabled title="Select an exercise from the list">
+                    <option value="">Loading exercises...</option>
+                </select>
+                <button id="recommendExerciseBtn" class="btn btn-accent" title="Get an AI-recommended exercise"><i class="fas fa-wand-magic-sparkles"></i> Recommend</button>
+                <div class="difficulty-indicator" id="difficultyIndicator" style="display: none;">
+                    <span class="difficulty-label">Difficulty:</span>
+                    <span class="difficulty-level" id="difficultyLevelText">Medium</span>
+                </div>
+            </section>
+
+            <article class="exercise-container" aria-live="polite">
+                <h3 id="currentExerciseTitle" class="current-exercise-title">No Exercise Loaded</h3>
+                <div class="passage" id="passageContainer">
+                    <div class="empty-exercise-message">
+                        <p>Please select an exercise or use Admin Mode to upload exercises.</p>
+                    </div>
+                </div>
+                <div class="drag-drop-area options-bank" id="dndOptionsContainer" style="display:none;" aria-label="Draggable word options">
+                    <!-- Draggable words for DND will appear here -->
+                </div>
+
+                <div class="controls student-actions">
+                    <button class="btn" id="prevExerciseBtn" disabled title="Load the previous exercise"><i class="fas fa-arrow-left"></i> <span class="btn-text">Previous</span></button>
+                    <button class="btn btn-submit" id="submitAnswersBtn" disabled title="Submit your answers for evaluation"><i class="fas fa-check-circle"></i> <span class="btn-text">Submit</span></button>
+                    <button class="btn btn-secondary" id="resetExerciseBtn" disabled title="Reset the current exercise"><i class="fas fa-redo"></i> <span class="btn-text">Reset</span></button>
+                    <button class="btn" id="nextExerciseBtn" disabled title="Load the next exercise"><span class="btn-text">Next</span> <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn btn-info" id="getInitialHintsBtn" disabled title="Toggle contextual clues in the passage" aria-pressed="false"><i class="fas fa-lightbulb"></i> <span class="btn-text">Show Clues</span></button> 
+                    <button class="btn btn-warning btn-toggle-pos" id="togglePosBtn" title="Toggle Part-of-Speech tags display" aria-pressed="false"><i class="fas fa-tags"></i> <span class="btn-text">Show POS</span></button>
+                </div>
+                <div class="score-display hidden" id="scoreDisplay" aria-live="assertive">
+                    <div>Your Score: <span id="scoreText">0%</span></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </article>
+
+            <section class="feedback-section" id="feedbackSection" aria-live="polite" tabindex="-1">
+                <!-- Enriched AI feedback will appear here -->
+            </section>
+            
+            <aside class="study-tools" aria-labelledby="studyToolsTitle">
+                <h4 id="studyToolsTitle"><i class="fas fa-graduation-cap"></i> Study Tools</h4>
+                <div class="tools-container">
+                    <button class="tool-btn" id="vocabularyToolBtn" title="Build and review your vocabulary"><i class="fas fa-book-open"></i> Vocabulary Builder</button>
+                    <button class="tool-btn" id="notepadBtn" title="Take and save study notes"><i class="fas fa-sticky-note"></i> Study Notes</button>
+                    <button class="tool-btn" id="flashcardsBtn" title="Create and use flashcards for revision"><i class="fas fa-layer-group"></i> Flashcards</button>
+                    <button class="tool-btn" id="progressBtn" title="Track your learning progress and analytics"><i class="fas fa-chart-line"></i> Progress Tracker</button>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Admin Panel -->
+        <section id="adminPanel" class="panel hidden" aria-labelledby="adminPanelTitle">
+            <h2 id="adminPanelTitle"><i class="fas fa-shield-alt"></i> Exercise Management System</h2>
+            
+            <div class="upload-area" id="adminUploadArea" title="Click or drag & drop a JSON file here" tabindex="0" role="button" aria-label="Upload exercise JSON file">
+                <div style="font-size: 3em; margin-bottom: 15px;" aria-hidden="true"><i class="fas fa-file-upload"></i></div>
+                <h3>Upload Enriched Exercise JSON</h3>
+                <p>Drag and drop a single .json file here or click to browse.</p>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">This will replace current exercises and linguistic resources.</p>
+                <input type="file" id="adminFileInput" class="file-input" accept=".json" aria-label="Exercise file input field">
+            </div>
+            <div id="adminUploadStatus" style="text-align:center; margin-top:10px;" aria-live="polite"></div>
+
+            <div class="admin-tools">
+                <button class="btn" id="createExerciseAdminBtn"><i class="fas fa-plus-circle"></i> Create New Exercise</button>
+                <button class="btn" id="exportUserDataAdminBtn"><i class="fas fa-download"></i> Export All Data</button>
+                <button class="btn btn-danger" id="adminClearExercisesBtn" title="Clear all stored exercises, resources, and stats"><i class="fas fa-trash-alt"></i> Clear All Stored Data</button>
+            </div>
+
+            <div class="exercise-list-container">
+                <h4>Stored Exercises Preview:</h4>
+                <div class="exercise-list" id="adminExerciseListPreview">
+                    <div class="empty-list-message">
+                        No exercises currently stored. Upload a JSON file.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Settings Panel (Modal) -->
+        <div id="settingsPanel" class="modal hidden" role="dialog" aria-labelledby="settingsModalTitleText" aria-modal="true">
+            <div class="modal-content modal-lg">
+                <button class="close-button" data-modal-close="settingsPanel" title="Close Settings" aria-label="Close Settings"><i class="fas fa-times"></i></button>
+                <h4 id="settingsModalTitleText"><i class="fas fa-sliders-h"></i> Application Settings</h4>
+                <div class="settings-container">
+                    <fieldset class="settings-section">
+                        <legend><h3><i class="fas fa-paint-brush"></i> Display</h3></legend>
+                        <div class="setting-item">
+                            <label for="themeSelector">Theme:</label>
+                            <select id="themeSelector" aria-label="Select application theme">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="system" selected>System Default</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="fontSizeSelector">Font Size:</label>
+                            <select id="fontSizeSelector" aria-label="Select application font size">
+                                <option value="small">Small</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="large">Large</option>
+                                <option value="xlarge">Extra Large</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset class="settings-section">
+                        <legend><h3><i class="fas fa-universal-access"></i> Accessibility</h3></legend>
+                        <div class="setting-item">
+                            <label for="animationsToggle">Enable Animations:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="animationsToggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label for="highContrastToggle">High Contrast Mode:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="highContrastToggle">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                         <div class="setting-item">
+                            <label for="dyslexicFontToggle">Dyslexia-Friendly Font:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="dyslexicFontToggle">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="settings-section">
+                        <legend><h3><i class="fas fa-cogs"></i> Study Preferences</h3></legend>
+                         <div class="setting-item">
+                            <label for="showTimerToggle">Show Exercise Timer:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="showTimerToggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label for="showDifficultyToggle">Show Difficulty Levels:</label>
+                             <label class="switch">
+                                <input type="checkbox" id="showDifficultyToggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                         <div class="setting-item">
+                            <label for="autoSaveToggle">Auto-save Progress:</label>
+                             <label class="switch">
+                                <input type="checkbox" id="autoSaveToggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="settings-section">
+                        <legend><h3><i class="fas fa-database"></i> Data Management</h3></legend>
+                        <button id="importUserDataSettingsBtn" class="btn btn-secondary"><i class="fas fa-upload"></i> Import User Data</button>
+                        <button id="exportUserDataSettingsBtn" class="btn btn-secondary"><i class="fas fa-download"></i> Export User Data</button>
+                        <button id="resetAppSettingsBtn" class="btn btn-danger"><i class="fas fa-undo"></i> Reset All Settings</button>
+                    </fieldset>
+                     <div class="settings-actions">
+                        <button class="btn btn-submit" id="saveSettingsBtn"><i class="fas fa-save"></i> Apply & Save Settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- End .container -->
+
+    <!-- Other Modals (Confidence, Info, Tools) -->
+    <div id="confidenceModal" class="modal hidden" role="dialog" aria-labelledby="confidenceModalDialogTitle" aria-modal="true">
+        <div class="modal-content">
+            <button class="close-button" data-modal-close="confidenceModal" title="Close this dialog" aria-label="Close"><i class="fas fa-times"></i></button>
+            <h4 id="confidenceModalDialogTitle">How sure are you about Blank <span id="confidenceBlankNumber"></span>?</h4>
+            <div class="confidence-options">
+                <button class="btn confidence-btn" data-level="sure" title="I am very sure about my answer"><i class="fas fa-check-double"></i> Very Sure</button>
+                <button class="btn confidence-btn" data-level="bit_sure" title="I am somewhat sure about my answer"><i class="fas fa-check"></i> A Bit Sure</button>
+                <button class="btn confidence-btn" data-level="guessing" title="I am just guessing this answer"><i class="fas fa-question-circle"></i> Just Guessing</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal hidden" role="dialog" aria-labelledby="infoModalDialogTitle" aria-modal="true">
+        <div class="modal-content">
+            <button class="close-button" data-modal-close="infoModal" title="Close this dialog" aria-label="Close"><i class="fas fa-times"></i></button>
+            <h4 id="infoModalDialogTitle">Linguistic Insight</h4>
+            <div id="infoModalContent" class="feedback-content">Details will appear here.</div>
+        </div>
+    </div>
+    
+    <div id="vocabularyModal" class="modal hidden" role="dialog" aria-labelledby="vocabularyModalDialogTitle" aria-modal="true">
+        <div class="modal-content modal-lg">
+            <button class="close-button" data-modal-close="vocabularyModal" title="Close Vocabulary Builder" aria-label="Close"><i class="fas fa-times"></i></button>
+            <h4 id="vocabularyModalDialogTitle"><i class="fas fa-book-open"></i> Vocabulary Builder</h4>
+            <div class="vocabulary-container"> <p class="placeholder-text">Vocabulary Builder feature coming soon!</p> </div>
+        </div>
+    </div>
+    
+    <div id="notepadModal" class="modal hidden" role="dialog" aria-labelledby="notepadModalDialogTitle" aria-modal="true">
+        <div class="modal-content modal-lg">
+            <button class="close-button" data-modal-close="notepadModal" title="Close Notepad" aria-label="Close"><i class="fas fa-times"></i></button>
+            <h4 id="notepadModalDialogTitle"><i class="fas fa-sticky-note"></i> Study Notes</h4>
+            <div class="notepad-container"> <p class="placeholder-text">Notepad feature coming soon!</p> </div>
+        </div>
+    </div>
+
+    <div id="flashcardsModal" class="modal hidden" role="dialog" aria-labelledby="flashcardsModalDialogTitle" aria-modal="true">
+        <div class="modal-content modal-lg">
+            <button class="close-button" data-modal-close="flashcardsModal" title="Close Flashcards" aria-label="Close"><i class="fas fa-times"></i></button>
+            <h4 id="flashcardsModalDialogTitle"><i class="fas fa-layer-group"></i> Flashcards</h4>
+            <div class="flashcards-container"> <p class="placeholder-text">Flashcards feature coming soon!</p> </div>
+        </div>
+    </div>
+
+    <div id="progressModal" class="modal hidden" role="dialog" aria-labelledby="progressModalDialogTitle" aria-modal="true">
+        <div class="modal-content modal-lg">
+            <button class="close-button" data-modal-close="progressModal" title="Close Progress Tracker" aria-label="Close"><i class="fas fa-times"></i></button>
+            <h4 id="progressModalDialogTitle"><i class="fas fa-chart-line"></i> Progress Tracker</h4>
+            <div class="progress-container">
+                <p class="placeholder-text">Progress Tracker feature coming soon! Charts will appear here.</p>
+                <canvas id="exerciseTypeChart" aria-label="Chart showing exercise types completed"></canvas>
+                <canvas id="progressTimeChart" aria-label="Chart showing progress over time"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div id="createExerciseModal" class="modal hidden" role="dialog" aria-labelledby="createExerciseModalDialogTitle" aria-modal="true">
+        <div class="modal-content modal-lg">
+            <button class="close-button" data-modal-close="createExerciseModal" title="Close Exercise Creator" aria-label="Close"><i class="fas fa-times"></i></button>
+            <h4 id="createExerciseModalDialogTitle"><i class="fas fa-edit"></i> Create New Exercise</h4>
+            <div class="create-exercise-container"> <p class="placeholder-text">Exercise creation tool coming soon!</p> </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <p>© <span id="currentYear">2024</span> PTE Linguistic Navigator Pro - Enhanced Edition</p>
+        <p><small>Utilizing <a href="https://github.com/spencermountain/compromise" target="_blank" rel="noopener noreferrer">compromise.js</a> for NLP.</small></p>
+    </footer>
+
+    <div class="toast-notifications" id="toastNotificationsContainer" aria-live="assertive" aria-atomic="true"></div>
+    
+    <span class="visually-hidden" id="posTaggerStatus" aria-live="polite"></span>
+
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/compromise"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Main Application Script -->
+    <script src="script.js"></script>
+    <script>
+        // This small script can remain for simple, non-app logic tasks if preferred
+        // or be moved into PTEApp.init()
+        const currentYearFooterEl = document.getElementById('currentYear');
+        if (currentYearFooterEl) currentYearFooterEl.textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
