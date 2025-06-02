@@ -551,11 +551,11 @@ body {
 
 [data-theme="dark"] .modal-content { background: var(--dm-bg-panel); }
 
-/*@keyframes modalPopup {
-    from {
+@keyframes modalPopup {
+    /*from {
         opacity: 0;
         transform: translateY(-20px) scale(0.98);
-    }
+    }*/
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
