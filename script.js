@@ -958,7 +958,26 @@ function openModal(modalId) {
                     localStorage.removeItem(LINGUISTIC_RESOURCES_STORAGE_KEY); // Clear if not provided
                 }
 
-                adminUploadStatusEl.textContent = `Success: ${exercisesToStore.length} exercises loaded. Linguistic resources ${resourcesToStore ? 'updated' : 'cleared/not found'}.`;
+                // Add this new code to create a downloadable file
+                const downloadLink = document.createElement('a');
+                const exportData = resourcesToStore ? 
+                    { exercises: exercisesToStore, linguistic_resources: resourcesToStore } : 
+                    exercisesToStore;
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = 'exercises_for_github.json';
+                downloadLink.textContent = 'Download Exercises JSON for GitHub';
+                downloadLink.className = 'btn btn-primary';
+                downloadLink.style.marginTop = '10px';
+                downloadLink.style.display = 'inline-block';
+                
+                // Add the download link below the status message
+                if (adminUploadStatusEl.nextElementSibling && adminUploadStatusEl.nextElementSibling.tagName === 'A') {
+                    adminUploadStatusEl.parentNode.removeChild(adminUploadStatusEl.nextElementSibling);
+                }
+                adminUploadStatusEl.insertAdjacentElement('afterend', downloadLink);
+
+                adminUploadStatusEl.textContent = `Success: ${exercisesToStore.length} exercises loaded. Linguistic resources ${resourcesToStore ? 'updated' : 'cleared/not found'}. Download the file and add it to your GitHub repository.`;
                 adminUploadStatusEl.className = 'feedback-message success';
 
                 loadExercisesAndResourcesFromStorage(); // Reload all data
@@ -1091,6 +1110,7 @@ function openModal(modalId) {
                 if (!Array.isArray(allExercises)) { // Basic validation
                     console.error("Stored exercises data is not an array. Resetting.", allExercises);
                     allExercises = [];
+                    loadDefaultExercises(); // Load defaults if stored data is invalid
                 }
                 // Legacy check: if global resources were stored within the first exercise
                 if (!linguisticResources && allExercises.length > 0 && allExercises[0]?.linguistic_resources) {
@@ -1107,15 +1127,63 @@ function openModal(modalId) {
                 }
             } else {
                 allExercises = [];
+                loadDefaultExercises(); // Load defaults if no exercises in localStorage
             }
         } catch (e) {
             console.error("Error loading exercises/resources from localStorage:", e);
             allExercises = [];
             linguisticResources = null;
-            showToast("Error loading exercise data. Data might be corrupted.", "error");
+            loadDefaultExercises(); // Load defaults on error
+            showToast("Error loading exercise data. Loading default exercises.", "info");
         }
         // Initial filter and render based on loaded data
         filterExercisesBySearch(); // This will also populate selector and render first/current exercise
+    }
+
+    // New function to load default exercises
+    function loadDefaultExercises() {
+        console.log("Loading default exercises...");
+        fetch('./sample_exercise.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle both formats (array or object with exercises property)
+                let exercisesToStore = [];
+                let resourcesToStore = null;
+                
+                if (Array.isArray(data)) { // Old format
+                    if (data.length > 0 && data[0].linguistic_resources) {
+                        resourcesToStore = data[0].linguistic_resources;
+                        exercisesToStore = data.map(ex => {
+                            const { linguistic_resources, ...exerciseWithoutResources } = ex;
+                            return exerciseWithoutResources;
+                        });
+                    } else {
+                        exercisesToStore = data;
+                    }
+                } else if (data.exercises) { // Newer format
+                    exercisesToStore = data.exercises;
+                    resourcesToStore = data.linguistic_resources || null;
+                }
+                
+                // Update global variables
+                allExercises = exercisesToStore;
+                if (resourcesToStore) {
+                    linguisticResources = resourcesToStore;
+                }
+                
+                // Update UI
+                filterExercisesBySearch();
+                showToast("Default exercises loaded successfully.", "success");
+            })
+            .catch(error => {
+                console.error("Error loading default exercises:", error);
+                showToast("Failed to load default exercises.", "error");
+            });
     }
 
     function filterExercisesBySearch() {
